@@ -155,6 +155,10 @@ html,body {
     transform: scale(1.2);
 }
 
+.button-disable {
+    pointer-events: none;
+}
+
 .battle-box {
     font-size: 25px;
     display: flex;

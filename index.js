@@ -66,27 +66,15 @@ function renderScoreBoxHtml() {
 
 renderScoreBoxHtml();
   
-  function nextRoundComment(){
-    commentGame.classList.add = "tracking-in-contract-bck"
-    commentGame.innerHTML = "Next round!"
-  }
-  
   function scoreCounter(choicePlr, choiceComp, e){
     
     if(choicePlr.name === choiceComp.name){
       commentGame.innerHTML = 'draw!'
-      // setTimeout(() => {
-      //   nextRoundComment();
-      // }, 4000);
     } else if (choicePlr.name === choiceComp.beats){
       commentGame.innerHTML = "computer score!!"
-      // setTimeout(() => {
-      //   nextRoundComment();
-      // }, 4000);
       computerScore++;
     } else if (choiceComp.name === choicePlr.beats){
       commentGame.innerHTML = "player score!!"
-      // setTimeout(() => {nextRoundComment()}, 4000);
       playerScore++;
       console.log(playerScore)
     }
