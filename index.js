@@ -17,15 +17,12 @@ const selections = [
 ];
 
 let playerChoice
-let computerChoice
-let playerScore = document.getElementById('score-player')
-let computerScore = document.getElementById("score-comp");
+let computerChoice 
+let playerScore = 0
+let computerScore = 0
 let commentGame = document.getElementById("game-commentary");
 let plrSelection = document.getElementById('selection')
 let compSelection = document.getElementById("computer-selection");
-
-playerScore.innerHTML = 0
-computerScore.innerHTML = 0
 
 function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3);
@@ -60,14 +57,14 @@ function renderSelectionBox() {
     ).innerHTML = `<div id="${choiceComp.name}">${choiceComp.emoji}</div>`);
   };
 
-  function gameplay(){
-    if (playerScore.innerHTML > 5){
-      commentGame.innerHTML = 'player win'
-    } else if (computerScore.innerHTML > 5) {
-      commentGame.innerHTML = "computer win"
-    }
-  }
-  gameplay()
+function renderScoreBoxHtml() {
+  const scoreBox = document.getElementById("score-box")
+  return (scoreBox.innerHTML = `
+            <p class="fade-in-top"><span class="score " id="score-player">${playerScore}</span></p>
+            <p class="fade-in-top"><span class="score" id="score-comp">${computerScore}</span></p>`);
+}
+
+renderScoreBoxHtml();
   
   function nextRoundComment(){
     commentGame.classList.add = "tracking-in-contract-bck"
@@ -75,22 +72,42 @@ function renderSelectionBox() {
   }
   
   function scoreCounter(choicePlr, choiceComp, e){
+    
     if(choicePlr.name === choiceComp.name){
       commentGame.innerHTML = 'draw!'
-      setTimeout(() => {
-        nextRoundComment();
-      }, 4000);
-      
+      // setTimeout(() => {
+      //   nextRoundComment();
+      // }, 4000);
     } else if (choicePlr.name === choiceComp.beats){
-      commentGame.innerHTML = 'computer score!!'
-      setTimeout(() => {
-        nextRoundComment();
-      }, 4000);
-      computerScore.innerHTML ++;
+      commentGame.innerHTML = "computer score!!"
+      // setTimeout(() => {
+      //   nextRoundComment();
+      // }, 4000);
+      computerScore++;
     } else if (choiceComp.name === choicePlr.beats){
-      commentGame.innerHTML = "player score!!";
-      setTimeout(() => {nextRoundComment()}, 4000);
-      playerScore.innerHTML ++;
+      commentGame.innerHTML = "player score!!"
+      // setTimeout(() => {nextRoundComment()}, 4000);
+      playerScore++;
+      console.log(playerScore)
+    }
+    if(playerScore >= 5){
+      setTimeout(() => commentGame.innerHTML = 'Player win!', 3000)
+      setTimeout(
+        () =>
+          (document.getElementById("container-game").innerHTML =
+            "<h1 class='title'>Congratulations! You win the game</h1><button id='new-game-button' class='text-shadow-pop-bl'>New game</button>"),
+        5000
+      );
+      
+    }
+    else if (computerScore >= 5) {
+      setTimeout(() => commentGame.innerHTML = "Computer win!",3000)
+      setTimeout(
+        () =>
+          (document.getElementById("container-game").innerHTML =
+            "<h1 class='title'>Game over</h1><button id='new-game-button' class='text-shadow-pop-bl'>New game</button>"),
+        5000
+      );
     }
   }
 
@@ -100,6 +117,7 @@ function renderSelectionBox() {
       getComputerChoice();
       computerChoiceHtml(computerChoice);
       scoreCounter(playerChoice, computerChoice);
+      renderScoreBoxHtml();
       plrSelection.classList.remove('rotate-90-cw');
       compSelection.classList.remove("rotate-90-ccw");
     }
