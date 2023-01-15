@@ -76,26 +76,31 @@ renderScoreBoxHtml();
     } else if (choiceComp.name === choicePlr.beats){
       commentGame.innerHTML = "player score!!"
       playerScore++;
-      console.log(playerScore)
     }
-    if(playerScore >= 5){
-      setTimeout(() => commentGame.innerHTML = 'Player win!', 3000)
+    if(playerScore >= 2){
+      setTimeout(() => commentGame.innerHTML = 'Player win!', 2400)
       setTimeout(
         () =>
           (document.getElementById("container-game").innerHTML =
             "<h1 class='title'>Congratulations! You win the game</h1><button id='new-game-button' class='text-shadow-pop-bl'>New game</button>"),
-        5000
+        4000
       );
       
     }
-    else if (computerScore >= 5) {
-      setTimeout(() => commentGame.innerHTML = "Computer win!",3000)
+    else if (computerScore >= 2) {
+      document.getElementById("paper").classList.add("button-disable");
+      setTimeout(() => (commentGame.innerHTML = "Computer win!"), 2400);
       setTimeout(
         () =>
           (document.getElementById("container-game").innerHTML =
             "<h1 class='title'>Game over</h1><button id='new-game-button' class='text-shadow-pop-bl'>New game</button>"),
-        5000
+        4000
       );
+    }
+    if (playerScore >= 2 || computerScore >= 2) {
+      for (let i = 0; i < selected.length; i++) {
+        selected[i].classList.add("button-disable");
+      }
     }
   }
 
